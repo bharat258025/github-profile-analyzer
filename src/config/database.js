@@ -1,19 +1,15 @@
-// database.js - Database configuration using Sequelize
-// Sequelize is an ORM (Object Relational Mapper) for Node.js
-// It lets us interact with MySQL using JavaScript objects instead of raw SQL
-
 const { Sequelize } = require("sequelize");
 require("dotenv").config();
 
-// Create a new Sequelize instance with MySQL connection details
 const sequelize = new Sequelize(
-  process.env.DB_NAME,      // Database name
-  process.env.DB_USER,      // MySQL username
-  process.env.DB_PASSWORD,  // MySQL password
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
   {
-    host: process.env.DB_HOST || "localhost",
-    dialect: "mysql",       // We are using MySQL
-    logging: false,         // Set to console.log to see SQL queries in terminal
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,   // ← add this line
+    dialect: "mysql",
+    logging: false,
   }
 );
 
