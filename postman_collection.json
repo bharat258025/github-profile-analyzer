@@ -1,0 +1,141 @@
+{
+  "info": {
+    "name": "GitHub Profile Analyzer API",
+    "description": "Postman collection for GitHub Profile Analyzer Node.js project",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the server is running"
+      }
+    },
+    {
+      "name": "Analyze Profile",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"octocat\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/profiles/analyze",
+          "host": ["{{base_url}}"],
+          "path": ["api", "profiles", "analyze"]
+        },
+        "description": "Analyze a GitHub profile and store insights in MySQL"
+      }
+    },
+    {
+      "name": "Get All Profiles",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/profiles",
+          "host": ["{{base_url}}"],
+          "path": ["api", "profiles"]
+        },
+        "description": "Fetch all analyzed profiles from the database"
+      }
+    },
+    {
+      "name": "Search Profiles",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/profiles?search=octo",
+          "host": ["{{base_url}}"],
+          "path": ["api", "profiles"],
+          "query": [
+            {
+              "key": "search",
+              "value": "octo"
+            }
+          ]
+        },
+        "description": "Search profiles by username or name"
+      }
+    },
+    {
+      "name": "Get Single Profile",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/profiles/octocat",
+          "host": ["{{base_url}}"],
+          "path": ["api", "profiles", "octocat"]
+        },
+        "description": "Fetch a specific profile by GitHub username"
+      }
+    },
+    {
+      "name": "Reanalyze Profile",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/profiles/octocat/reanalyze",
+          "host": ["{{base_url}}"],
+          "path": ["api", "profiles", "octocat", "reanalyze"]
+        },
+        "description": "Re-fetch from GitHub and update the stored profile"
+      }
+    },
+    {
+      "name": "Top Profiles",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/profiles/top",
+          "host": ["{{base_url}}"],
+          "path": ["api", "profiles", "top"]
+        },
+        "description": "Get top 10 profiles sorted by score (descending)"
+      }
+    },
+    {
+      "name": "Top Profiles (Custom Limit)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/profiles/top?limit=5",
+          "host": ["{{base_url}}"],
+          "path": ["api", "profiles", "top"],
+          "query": [
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        },
+        "description": "Get top profiles with a custom limit"
+      }
+    }
+  ]
+}
