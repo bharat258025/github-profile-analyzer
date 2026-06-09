@@ -1,24 +1,16 @@
-// server.js - Entry point of the application
-// This file starts the Express server
-
 const app = require("./src/app");
 const { sequelize } = require("./src/config/database");
-
-// Load environment variables
 require("dotenv").config();
 
-const PORT = process.env.PORT || 5000;
+// Railway provides its own PORT - we must use it
+const PORT = process.env.PORT || 3000;
 
-// Sync database and start server
-// sequelize.sync() creates the table if it doesn't exist
 sequelize
   .sync({ alter: true })
   .then(() => {
     console.log("✅ Database connected and synced successfully");
-
-    app.listen(PORT, () => {
-      console.log(`🚀 Server is running on http://localhost:${PORT}`);
-      console.log(`📋 Health check: http://localhost:${PORT}/health`);
+    app.listen(PORT, "0.0.0.0", () => {  // "0.0.0.0" is important for Railway
+      console.log(`🚀 Server running on port ${PORT}`);
     });
   })
   .catch((err) => {
